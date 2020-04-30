@@ -1,0 +1,21 @@
+{
+  "ethNodeUrl": "ws://localhost:8546",
+  "explorerApiKey": "",
+  "logger": {
+    "Console": {
+      "colorize": true,
+      "level": "debug",
+      "prettyPrint": true,
+      "stringify": true
+    },
+    "Papertrail": {
+      "colorize": true,
+      "flushOnClose": true,
+      "handleExceptions": true,
+      "inlineMeta": true,
+      "level": "info"
+    }
+  },
+  "port": 3005,
+  "subscriptionMaxAddresses": 10
+}

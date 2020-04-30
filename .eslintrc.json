@@ -1,0 +1,37 @@
+{
+  "extends": [
+    "prettier",
+    "bloq",
+    "bloq/node"
+  ],
+  "overrides": [
+    {
+      "files": "test/*.spec.js",
+      "extends": [
+        "bloq/mocha"
+      ],
+      "rules": {
+        "node/no-unpublished-require": "off"
+      }
+    }
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "jsdoc/require-jsdoc": "off",
+    "no-console": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false
+      }
+    ],
+    "require-jsdoc": "off"
+  }
+}
