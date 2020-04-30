@@ -1,0 +1,46 @@
+os: linux
+
+language: node_js
+
+node_js:
+  - "10"
+
+cache: npm
+
+script:
+  - npm run lint
+  - npm run test
+
+jobs:
+  include:
+    - stage: Test
+    - stage: Deploy Ethereum service
+      env:
+        - CHAIN=$ETH_CHAIN
+        - EXPLORER_API_KEY=$ETH_EXPLORER_API_KEY
+        - LOGGER_PAPERTRAIL_PROGRAM=$LOGGER_PAPERTRAIL_PROGRAM_BASE-$STAGE
+      script: skip
+      before_deploy:
+        - pip install awscli awsebcli pyopenssl --upgrade --user
+        - export PATH=$PATH:$HOME/.local/bin
+      deploy:
+        provider: script
+        script: npm run deploy:eb
+        on:
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^(master|prod)$
+    - Stage: Deploy Ethereum Classic service
+      env:
+        - CHAIN=$ETC_CHAIN
+        - ETH_NODE_URL=$ETC_NODE_URL
+        - LOGGER_PAPERTRAIL_PROGRAM=$LOGGER_PAPERTRAIL_PROGRAM_BASE-$STAGE
+      script: skip
+      before_deploy:
+        - pip install awscli awsebcli pyopenssl --upgrade --user
+        - export PATH=$PATH:$HOME/.local/bin
+      deploy:
+        provider: script
+        script: npm run deploy:eb
+        on:
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^(master|prod)$

@@ -1,6 +1,10 @@
+.elasticbeanstalk/*
 .eslintcache
+.git
+.gitignore
 .nyc_output
 config/local.json
 coverage
 node_modules
 npm-debug.log
+test

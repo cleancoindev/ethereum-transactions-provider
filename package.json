@@ -6,6 +6,7 @@
   "main": "server.js",
   "repository": "autonomoussoftware/ethereum-transactions-provider",
   "scripts": {
+    "deploy:eb": "scripts/deploy",
     "docker:build": "docker build -t ethereum-transactions-provider .",
     "docker:run": "docker run -it --rm -p 3005:3005 ethereum-transactions-provider",
     "check": "dependency-check . --no-dev",

@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "$npm_package_name" ]
+then
+    echo Run as \"npm run deploy:eb\"
+    exit 1
+fi
+
+CHAIN=${CHAIN:-eth}
+EB_APP_NAME=$npm_package_name
+EB_ENV_NAME=$npm_package_name-$CHAIN
+REGION=us-east-2
+
+echo Deploying with configuration:
+
+echo CHAIN="$CHAIN"
+echo EB_APP_NAME="$EB_APP_NAME"
+echo EB_ENV_NAME="$EB_ENV_NAME"
+echo ETH_NODE_URL="$ETH_NODE_URL"
+echo EXPLORER_API_KEY="$EXPLORER_API_KEY"
+echo LOGGER_CONSOLE_LEVEL="$LOGGER_CONSOLE_LEVEL"
+echo LOGGER_PAPERTRAIL_HOST="$LOGGER_PAPERTRAIL_HOST"
+echo LOGGER_PAPERTRAIL_PORT="$LOGGER_PAPERTRAIL_PORT"
+echo REGION="$REGION"
+echo SUBSCRIPTION_MAX_ADDRESSES="$SUBSCRIPTION_MAX_ADDRESSES"
+
+if [ -z "$ETH_NODE_URL" ]
+then
+    echo Missing Ethereum node URL
+    exit 1
+fi
+
+echo Initializing Elastic Beanstalk
+
+eb init "$EB_APP_NAME" \
+--platform "docker-18.09.9-ce" \
+--region "$REGION" \
+--verbose
+
+ENVIRONMENTS=$(aws elasticbeanstalk describe-environments --region "$REGION" --application-name "$EB_APP_NAME" --environment-names "$EB_ENV_NAME")
+if [ "$(echo "$ENVIRONMENTS" | jq -r ".Environments[0].EnvironmentName")" = "$EB_ENV_NAME" ] && [ "$(echo "$ENVIRONMENTS" | jq -r ".Environments[0].Status")" != "Terminated" ]
+then
+    echo Deploying to Elastic Beanstalk environment "$EB_ENV_NAME"
+    
+    eb setenv ETH_NODE_URL="$ETH_NODE_URL" EXPLORER_API_KEY="$EXPLORER_API_KEY" LOGGER_PAPERTRAIL_HOST="$LOGGER_PAPERTRAIL_HOST" LOGGER_PAPERTRAIL_PORT="$LOGGER_PAPERTRAIL_PORT" LOGGER_PAPERTRAIL_PROGRAM="$EB_ENV_NAME"  \
+    --environment "$EB_ENV_NAME" \
+    --verbose
+    
+    eb deploy "$EB_ENV_NAME" \
+    --verbose
+else
+    echo Creating Elastic Beanstalk environment "$EB_ENV_NAME"
+    
+    eb create "$EB_ENV_NAME" \
+    --elb-type application \
+    --envvars "ETH_NODE_URL=$ETH_NODE_URL,EXPLORER_API_KEY=$EXPLORER_API_KEY,LOGGER_PAPERTRAIL_HOST=$LOGGER_PAPERTRAIL_HOST,LOGGER_PAPERTRAIL_PORT=$LOGGER_PAPERTRAIL_PORT,LOGGER_PAPERTRAIL_PROGRAM=$EB_ENV_NAME" \
+    --instance_type m5.large \
+    --tags "Product=Metronome,Service=Indexer,Contact=$npm_package_author_name" \
+    --verbose
+    
+    echo Configure the load balancer and custom domain name in the the Elastic Beanstalk console...
+    echo Run \"eb console "$EB_ENV_NAME"\"
+fi

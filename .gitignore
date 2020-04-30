@@ -1,3 +1,6 @@
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.elasticbeanstalk/*
 .eslintcache
 .nyc_output
 config/local.json

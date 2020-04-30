@@ -58,8 +58,13 @@ function createRouter({ blocksParser, explorer, logger }) {
   const getLatestBlockNumber = () =>
     blocksParser.getLatestBlock().then((block) => block.number.toString())
 
+  function healthCheck(req, res) {
+    res.sendStatus(200)
+  }
+
   return express
     .Router()
+    .get('/', healthCheck)
     .get(
       '/blocks/best',
       asyncFnToMiddleware(blocksParser.getLatestBlock, logger)
