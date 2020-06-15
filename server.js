@@ -6,6 +6,7 @@ const http = require('http')
 const createLogger = require('@bloq/service-logger')
 
 const createBlocksParser = require('./src/blocks-parser')
+const createHttpHealthRouter = require('./src/http-health-router')
 const createRestApiRouter = require('./src/rest-api-router')
 const createSocketIoServer = require('./src/socket.io-server')
 const createExplorer = require('./src/explorer')
@@ -25,8 +26,10 @@ const explorer = createExplorer({ apiKey, chainIdPromise })
 
 // Create the REST API and HTTP server
 const restApiRouter = createRestApiRouter({ blocksParser, explorer, logger })
+const healthRouter = createHttpHealthRouter()
 const app = express()
   .use('/', restApiRouter)
+  .use('/', healthRouter)
   .use(function (req, res) {
     res.status(404).json({ message: 'Not Found' })
   })
