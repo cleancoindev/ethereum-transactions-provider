@@ -68,7 +68,7 @@ function createRouter({ blocksParser, explorer, logger }) {
       '/addresses/:address(0x[0-9a-fA-F]{40})/transactions',
       validateParam('address', isAddress),
       applyDefault('from', 0),
-      validateParam('from', isCardinal, 0),
+      validateParam('from', isCardinal),
       applyDefault('to', getLatestBlockNumber),
       validateParam('to', isCardinal),
       asyncFnToMiddleware(explorer.getAddressTransactions, logger)
