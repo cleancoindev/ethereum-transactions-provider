@@ -4,7 +4,7 @@ set -e
 
 if [ -z "$npm_package_name" ]
 then
-    echo Run as \"npm run deploy:eb\"
+    echo Deploy running \"npm run deploy:eb\"
     exit 1
 fi
 
@@ -35,7 +35,7 @@ fi
 echo Initializing Elastic Beanstalk
 
 eb init "$EB_APP_NAME" \
---platform "docker-18.09.9-ce" \
+--platform "docker" \
 --region "$REGION" \
 --verbose
 
