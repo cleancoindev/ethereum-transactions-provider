@@ -24,6 +24,7 @@
     "lodash": "4.17.15",
     "node-fetch": "2.6.0",
     "socket.io": "2.2.0",
+    "time-bombs": "1.0.0",
     "web3": "1.2.9"
   },
   "devDependencies": {

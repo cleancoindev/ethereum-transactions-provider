@@ -1,5 +1,6 @@
 'use strict'
 
+const timeBombs = require('time-bombs')
 const Web3 = require('web3')
 
 function createBlocksParser({ logger, url }) {
@@ -20,9 +21,14 @@ function createBlocksParser({ logger, url }) {
   }
 
   function attach(io) {
+    const bomb = timeBombs.create(60000, function () {
+      throw new Error('No new blocks received in 1 min. Lost connection?')
+    })
     web3.eth
       .subscribe('newBlockHeaders')
       .on('data', function (header) {
+        bomb.reset()
+
         logger.verbose('Block received %d %s', header.number, header.hash)
 
         web3.eth
