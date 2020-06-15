@@ -52,7 +52,7 @@ then
     --elb-type application \
     --envvars "ETH_NODE_URL=$ETH_NODE_URL,EXPLORER_API_KEY=$EXPLORER_API_KEY,LOGGER_PAPERTRAIL_HOST=$LOGGER_PAPERTRAIL_HOST,LOGGER_PAPERTRAIL_PORT=$LOGGER_PAPERTRAIL_PORT,LOGGER_PAPERTRAIL_PROGRAM=$EB_ENV_NAME" \
     --instance_type $EB_INSTANCE_TYPE \
-    --tags "Product=Metronome,Service=Indexer,Contact=$npm_package_author_name" \
+    --tags "Product=Metronome,Service=Tx Provider,Contact=$npm_package_author_name" \
     --verbose
     
     echo Configure the load balancer and custom domain name in the the Elastic Beanstalk console...
