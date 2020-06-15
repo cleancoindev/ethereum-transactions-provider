@@ -21,7 +21,7 @@ jobs:
         - LOGGER_PAPERTRAIL_PROGRAM=$LOGGER_PAPERTRAIL_PROGRAM_BASE-$STAGE
       script: skip
       before_deploy:
-        - pip install awscli awsebcli pyopenssl --upgrade --user
+        - pip install awsebcli pyopenssl --upgrade --user
         - export PATH=$PATH:$HOME/.local/bin
       deploy:
         provider: script
@@ -36,7 +36,7 @@ jobs:
         - LOGGER_PAPERTRAIL_PROGRAM=$LOGGER_PAPERTRAIL_PROGRAM_BASE-$STAGE
       script: skip
       before_deploy:
-        - pip install awscli awsebcli pyopenssl --upgrade --user
+        - pip install awsebcli pyopenssl --upgrade --user
         - export PATH=$PATH:$HOME/.local/bin
       deploy:
         provider: script
