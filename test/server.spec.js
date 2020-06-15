@@ -9,7 +9,7 @@ const port = config.get('port')
 
 require('../server')
 
-describe('Indexer', function () {
+describe('Indexer end-to-end', function () {
   before(function () {
     if (!process.env.E2E) {
       this.skip()
