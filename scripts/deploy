@@ -9,7 +9,7 @@ then
 fi
 
 CHAIN=${CHAIN:-eth}
-EB_APP_NAME=$npm_package_name-2
+EB_APP_NAME=$npm_package_name
 EB_ENV_NAME=$EB_APP_NAME-$CHAIN
 REGION=us-east-2
 
