@@ -15,7 +15,7 @@ function createBlocksParser({ logger, url }) {
       return {
         number: block.number,
         hash: block.hash,
-        totalDifficulty: block.totalDifficulty,
+        totalDifficulty: block.totalDifficulty
       }
     })
   }
@@ -55,7 +55,7 @@ function createBlocksParser({ logger, url }) {
   return {
     attach,
     getChainId,
-    getLatestBlock,
+    getLatestBlock
   }
 }
 
