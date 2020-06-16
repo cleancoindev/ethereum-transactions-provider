@@ -27,6 +27,7 @@ jobs:
         on:
           all_branches: true
           condition: $TRAVIS_BRANCH =~ ^(master|prod)$
+        skip_cleanup: true
     - Stage: Deploy Ethereum Classic service
       env:
         - CHAIN=$ETC_CHAIN
@@ -43,3 +44,4 @@ jobs:
         on:
           all_branches: true
           condition: $TRAVIS_BRANCH =~ ^(master|prod)$
+        skip_cleanup: true
