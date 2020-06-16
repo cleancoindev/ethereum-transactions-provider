@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const Web3 = require('web3')
+
+const web3 = new Web3(process.env.ETH_NODE_URL)
+
+const chainIds = {
+  eth: 1,
+  ropsten: 3,
+  etc: 61,
+  mordor: 63
+}
+
+Promise.all([web3.eth.getChainId(), web3.eth.getBlock('latest')])
+  .then(function ([chainId, block]) {
+    if (chainId !== chainIds[process.env.CHAIN]) {
+      throw new Error(`Cluster is of the wrong chain: ${chainId}`)
+    }
+    const blockAgeMin = Math.floor((Date.now() / 1000 - block.timestamp) / 60)
+    if (blockAgeMin > 5) {
+      throw new Error(`Cluster out of sync by ${blockAgeMin} minutes`)
+    }
+  })
+  .then(function () {
+    web3.currentProvider.disconnect()
+  })
+  .catch(function (err) {
+    console.log(`ERROR: ${err.message}`)
+    process.exit(1)
+  })

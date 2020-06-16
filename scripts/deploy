@@ -32,6 +32,8 @@ if [ -z "$ETH_NODE_URL" ]
 then
     echo Missing Ethereum node URL
     exit 1
+else
+    $(dirname $0)/check-cluster-config
 fi
 
 echo ""

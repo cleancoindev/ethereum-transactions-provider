@@ -1,35 +1,33 @@
 {
-  "extends": [
-    "prettier",
-    "bloq",
-    "bloq/node"
-  ],
+  "extends": ["prettier", "bloq", "bloq/node"],
   "overrides": [
     {
       "files": "test/*.spec.js",
-      "extends": [
-        "bloq/mocha"
-      ],
+      "extends": ["bloq/mocha"],
       "rules": {
         "node/no-unpublished-require": "off"
       }
+    },
+    {
+      "files": "scripts/*",
+      "rules": {
+        "no-console": "off",
+        "no-process-exit": "off",
+        "node/shebang": "off"
+      }
     }
   ],
-  "plugins": [
-    "prettier"
-  ],
+  "plugins": ["prettier"],
   "rules": {
-    "arrow-parens": [
-      "error",
-      "always"
-    ],
+    "arrow-parens": ["error", "always"],
     "jsdoc/require-jsdoc": "off",
     "no-console": "warn",
     "prettier/prettier": [
       "error",
       {
         "singleQuote": true,
-        "semi": false
+        "semi": false,
+        "trailingComma": "none"
       }
     ],
     "require-jsdoc": "off"
