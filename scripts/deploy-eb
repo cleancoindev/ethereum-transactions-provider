@@ -20,21 +20,11 @@ echo ""
 echo CHAIN="$CHAIN"
 echo EB_APP_NAME="$EB_APP_NAME"
 echo EB_ENV_NAME="$EB_ENV_NAME"
-echo ETH_NODE_URL="$ETH_NODE_URL"
-echo EXPLORER_API_KEY="$EXPLORER_API_KEY"
 echo LOGGER_CONSOLE_LEVEL="$LOGGER_CONSOLE_LEVEL"
 echo LOGGER_PAPERTRAIL_HOST="$LOGGER_PAPERTRAIL_HOST"
 echo LOGGER_PAPERTRAIL_PORT="$LOGGER_PAPERTRAIL_PORT"
 echo REGION="$REGION"
 echo SUBSCRIPTION_MAX_ADDRESSES="$SUBSCRIPTION_MAX_ADDRESSES"
-
-if [ -z "$ETH_NODE_URL" ]
-then
-    echo Missing Ethereum node URL
-    exit 1
-else
-    $(dirname $0)/check-cluster-config
-fi
 
 echo ""
 echo Initializing Elastic Beanstalk

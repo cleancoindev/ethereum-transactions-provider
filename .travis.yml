@@ -31,6 +31,7 @@ jobs:
       env:
         - CHAIN=$ETC_CHAIN
         - ETH_NODE_URL=$ETC_NODE_URL
+        - EXPLORER_API_KEY=""
         - LOGGER_PAPERTRAIL_PROGRAM=$LOGGER_PAPERTRAIL_PROGRAM_BASE-$STAGE
       script: skip
       before_deploy:

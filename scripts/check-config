@@ -25,6 +25,7 @@ Promise.all([web3.eth.getChainId(), web3.eth.getBlock('latest')])
   })
   .then(function () {
     web3.currentProvider.disconnect()
+    console.log('Cluster config OK')
   })
   .catch(function (err) {
     console.log(`ERROR: ${err.message}`)
