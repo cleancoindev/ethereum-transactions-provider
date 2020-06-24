@@ -75,27 +75,8 @@ Subscription responses:
 
 Default configuration can be customized by setting environment variables or createing a JSON file in the `config` folder following the [config](https://github.com/lorenwest/node-config/) module guidelines.
 
-  "ethNodeUrl": "ETH_NODE_URL",
-  "explorerApiKey": "EXPLORER_API_KEY",
-  "logger": {
-    "Console": {
-      "level": "LOGGER_CONSOLE_LEVEL"
-    },
-    "Papertrail": {
-      "host": "LOGGER_PAPERTRAIL_HOST",
-      "port": "LOGGER_PAPERTRAIL_PORT",
-      "program": "LOGGER_PAPERTRAIL_PROGRAM",
-      "level": "LOGGER_PAPERTRAIL_LEVEL"
-    }
-  },
-  "port": "PORT",
-  "subscriptionMaxAddresses": "SUBSCRIPTION_MAX_ADDRESSES"
-
-- `COIN`: `eth` or `etc`
-- `CHAIN`: `mainnet` or the name of the chain param required by Parity.
-- `ENV`: `prod` or `test`
-- `PAPERTRAIL_HOST`: `logs.papertrailapp.com` or the proper logging URL
-- `PAPERTRAIL_PORT`: to the proper port
+- `ETH_NODE_URL`: the URL of the node used to listen for new blocks.
+- `EXPLORER_API_KEY`: the API key to query the block explorers.
 
 ### Installing dependencies
 
